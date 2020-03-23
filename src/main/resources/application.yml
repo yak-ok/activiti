@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  ##数据库连接信息
+  datasource:
+    # 数据源配置
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/activity?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: yak123@Ok
+    hikari:
+      # 最小空闲连接数，默认为10
+      minimum-idle: 5
+      # 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 300000
+      # 连接池最大连接数，默认是10
+      maximum-pool-size: 100
+      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      # 连接池名称
+      pool-name: MyHikariCP
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      # SQLException: XAER_INVAL: Invalid arguments (or unsupported command)问题
+    xa:
+      properties:
+        pinGlobalTxToPhysicalConnection: true
+        useServerPrepStmts: true
+
+  activiti:
+    # 自动建表
+    database-schema: ACTIVITI
+    database-schema-update: true
+    history-level: full
+    db-history-used: true
